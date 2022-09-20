@@ -1,7 +1,11 @@
+// Aqui vamos criar o CRUD de livros
+
+// importando o modelo de livro
 import livros from "../models/Livro.js";
 
 class LivroController {
-
+  
+  // listando todos os livros
   static listarLivros = (req, res) => {
     livros.find()
       .populate('autor')
@@ -65,7 +69,7 @@ class LivroController {
     const editora = req.query.editora
 
     livros.find({'editora': editora}, {}, (err, livros) => {
-      res.status(200).send(livros);
+      return res.status(200).send(livros);
 
     })
   }
@@ -73,5 +77,6 @@ class LivroController {
 
 
 }
-
 export default LivroController
+
+// Precisams de um arquivo de rotas de livro que vai ficar na pasta routes para utilizarmos os metodos http
