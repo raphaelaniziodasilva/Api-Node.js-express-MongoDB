@@ -10,8 +10,9 @@ class LivroController {
     livros.find()
       .populate('autor')
       .exec((err, livros) => {
-        res.status(200).json(livros)
+       return res.status(200).json(livros)
   })
+      // Agora vamos incluir o metodo listar livros na rota de livro
   }
 
   static listarLivroPorId = (req, res) => {
@@ -28,15 +29,25 @@ class LivroController {
     })
   }
 
+  // cadastrando livros
   static cadastrarLivro = (req, res) => {
-    let livro = new livros(req.body);
 
+    /* criando uma variavel livro aonde vai criar um novo modelo (Schema) de livro de acordo com o que veio no body = corpo da requisição. 
+    new livros --> livros e o que representa a nossa coleção: collection
+    */
+    let livro = new livros(req.body);
+       
+    // salvando os dados do livro no banco de dados. Se caso as informações não forem salvas corretamente vai acontecer o erro
     livro.save((err) => {
 
+      // se acontecer algum erro
       if(err) {
-        res.status(500).send({message: `${err.message} - falha ao cadastrar livro.`})
+        return res.status(500).send({message: `${err.message} - falha ao cadastrar livro.`})
       } else {
-        res.status(201).send(livro.toJSON())
+        // se não tiver nenhum erro vai enviar as informações do livro cadastrado para o usuario. toJSON --> vai converter para json e enviar para o usuario
+        return res.status(201).send(livro.toJSON())
+
+        // Agora vamos incluir o metodo cadastrar na rota de livro
       }
     })
   }

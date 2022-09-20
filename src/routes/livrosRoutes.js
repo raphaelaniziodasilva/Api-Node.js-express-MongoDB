@@ -9,13 +9,14 @@ const router = express.Router();
 
 // definindo as rotas, definindo o que vai acontecer a cada rota  
 router
-  // listando todos os livros
+  // listando todos os livros 
   .get("/livros", LivroController.listarLivros)
 
   .get("/livros/busca", LivroController.listarLivroPorEditora)
 
   .get("/livros/:id", LivroController.listarLivroPorId)
 
+  // cadastrando livro
   .post("/livros", LivroController.cadastrarLivro)
 
   .put("/livros/:id", LivroController.atualizarLivro)
